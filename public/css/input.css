@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Vintage texture overlay effect */
+@layer utilities {
+  .texture-overlay {
+    position: relative;
+  }
+  
+  .texture-overlay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.03) 0px,
+        transparent 1px,
+        transparent 2px,
+        rgba(0, 0, 0, 0.03) 3px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.03) 0px,
+        transparent 1px,
+        transparent 2px,
+        rgba(0, 0, 0, 0.03) 3px
+      );
+    pointer-events: none;
+    opacity: 0.4;
+    z-index: 1;
+  }
+  
+  /* Distressed paper texture */
+  .vintage-texture {
+    background-image: 
+      radial-gradient(circle at 1px 1px, rgba(0,0,0,0.15) 1px, transparent 0);
+    background-size: 20px 20px;
+    position: relative;
+  }
+  
+  .vintage-texture::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.05) 50%, transparent 70%),
+      linear-gradient(-45deg, transparent 30%, rgba(0,0,0,0.05) 50%, transparent 70%);
+    pointer-events: none;
+  }
+  
+  /* Cartoon-style borders */
+  .cartoon-border {
+    border: 3px solid rgba(0, 0, 0, 0.3);
+    box-shadow: 
+      0 4px 6px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Checkerboard pattern for betting squares */
+  .betting-square-checkerboard:nth-child(1),
+  .betting-square-checkerboard:nth-child(3),
+  .betting-square-checkerboard:nth-child(5) {
+    @apply bg-red-950;
+  }
+  
+  .betting-square-checkerboard:nth-child(2),
+  .betting-square-checkerboard:nth-child(4),
+  .betting-square-checkerboard:nth-child(6) {
+    @apply bg-stone-100;
+  }
+  
+  /* Alternative checkerboard using grid positioning */
+  .betting-grid-checkerboard > div:nth-child(3n+1),
+  .betting-grid-checkerboard > div:nth-child(3n+3),
+  .betting-grid-checkerboard > div:nth-child(3n+5) {
+    @apply bg-red-950;
+  }
+  
+  .betting-grid-checkerboard > div:nth-child(3n+2),
+  .betting-grid-checkerboard > div:nth-child(3n+4),
+  .betting-grid-checkerboard > div:nth-child(3n+6) {
+    @apply bg-stone-100;
+  }
+  
+  /* Text color adjustments for light backgrounds */
+  .betting-square-checkerboard.bg-stone-100 {
+    color: #1c1917; /* stone-900 */
+  }
+  
+  .betting-square-checkerboard.bg-stone-100 .text-yellow-300 {
+    @apply text-red-900;
+  }
+}
+
