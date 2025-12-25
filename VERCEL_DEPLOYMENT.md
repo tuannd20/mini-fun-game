@@ -9,6 +9,7 @@
 - Real-time features may not function correctly on Vercel
 
 ### Recommended Alternatives:
+
 1. **Railway** - Full Node.js support with WebSockets
 2. **Render** - Free tier with WebSocket support
 3. **Heroku** - Traditional hosting with WebSocket support
@@ -40,24 +41,17 @@ Create a `vercel.json` file in your project root:
 
 ```json
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "server.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "server.js"
-    }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  }
+	"version": 2,
+	"rewrites": [
+		{
+			"source": "/(.*)",
+			"destination": "/server.js"
+		}
+	]
 }
 ```
+
+**Note**: This uses the modern Vercel configuration without the deprecated `builds` property. Vercel will auto-detect your Node.js application.
 
 ### 1.2 Update `package.json` Scripts
 
@@ -65,12 +59,12 @@ Ensure your `package.json` has a build script (even if empty):
 
 ```json
 {
-  "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
-    "build": "echo 'No build step required'",
-    "build-css": "tailwindcss -i ./public/css/input.css -o ./public/css/style.css --watch"
-  }
+	"scripts": {
+		"start": "node server.js",
+		"dev": "nodemon server.js",
+		"build": "echo 'No build step required'",
+		"build-css": "tailwindcss -i ./public/css/input.css -o ./public/css/style.css --watch"
+	}
 }
 ```
 
@@ -102,6 +96,7 @@ vercel
 ```
 
 Follow the prompts:
+
 - Set up and deploy? **Yes**
 - Which scope? Select your account
 - Link to existing project? **No** (for first deployment)
@@ -130,11 +125,15 @@ vercel --prod
 
 ### 3.2 Configure Project Settings
 
-- **Framework Preset**: Other
+Since we're using the modern `vercel.json` (without `builds`), these settings in the dashboard will apply:
+
+- **Framework Preset**: Other (or Node.js if available)
 - **Root Directory**: `./` (or leave default)
-- **Build Command**: Leave empty or `npm run build`
+- **Build Command**: Leave empty (Vercel will auto-detect Node.js)
 - **Output Directory**: Leave empty
-- **Install Command**: `npm install`
+- **Install Command**: `npm install` (default)
+
+**Note**: Without the `builds` property in `vercel.json`, Vercel will use these dashboard settings, which is the recommended approach.
 
 ### 3.3 Set Environment Variables
 
@@ -184,19 +183,23 @@ cookie: {
 ## Troubleshooting
 
 ### Issue: WebSockets Not Working
+
 **Solution**: This is expected. Vercel doesn't support WebSockets. Consider migrating to Railway, Render, or another platform.
 
 ### Issue: Build Fails
+
 - Check that all dependencies are in `dependencies` (not `devDependencies`)
 - Ensure `vercel.json` is correctly configured
 - Check build logs in Vercel dashboard
 
 ### Issue: Environment Variables Not Working
+
 - Ensure variables are set in Vercel dashboard
 - Redeploy after adding new environment variables
 - Check variable names match exactly (case-sensitive)
 
 ### Issue: Static Files Not Loading
+
 - Ensure `public` folder is properly configured
 - Check file paths are correct
 - Verify `express.static` middleware is working
@@ -219,6 +222,7 @@ Railway is better suited for your Socket.io application:
 5. **Deploy** - Railway will auto-detect Node.js and deploy
 
 Railway supports:
+
 - ✅ WebSockets/Socket.io
 - ✅ Persistent connections
 - ✅ Long-running processes
@@ -250,4 +254,3 @@ Render supports WebSockets on paid plans and has a free tier for testing.
 - ✅ **DigitalOcean**: Reliable with good pricing
 
 Choose the platform that best fits your needs and budget!
-
