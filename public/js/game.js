@@ -11,7 +11,32 @@ let gameHistory = []; // Track game history
 
 // Initialize socket connection
 function initSocket() {
-	socket = io();
+	// Determine the Socket.IO server URL based on environment
+	const isProduction = window.location.hostname.includes("vercel.app") || window.location.hostname === "mini-fun-game.vercel.app";
+
+	if (isProduction) {
+		// Use the production domain for Socket.IO connection
+		// Prioritize polling for better serverless compatibility
+		const protocol = window.location.protocol === "https:" ? "https:" : "http:";
+		const host = window.location.hostname;
+		socket = io(`${protocol}//${host}`, {
+			transports: ["polling", "websocket"], // Polling first for serverless
+			upgrade: true,
+			rememberUpgrade: false, // Don't remember upgrade for serverless
+			reconnection: true,
+			reconnectionDelay: 1000,
+			reconnectionDelayMax: 5000,
+			reconnectionAttempts: Infinity,
+			forceNew: false,
+		});
+	} else {
+		// Local development - connect to current origin
+		socket = io({
+			transports: ["websocket", "polling"],
+			upgrade: true,
+			rememberUpgrade: true,
+		});
+	}
 
 	// User info received
 	socket.on("user-info", (data) => {
