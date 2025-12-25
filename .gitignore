@@ -1,10 +1,151 @@
+# Dependencies
 node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+# Note: package-lock.json should be tracked for consistent installs
+yarn.lock
+
+# Environment variables
 .env
+.env.local
+.env.development
+.env.production
+.env.test
+.env.*.local
+
+# Logs
+logs/
 *.log
-.DS_Store
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# PM2
+.pm2/
+ecosystem.config.js
+ecosystem.config.local.js
+pm2.log
+pm2-error.log
+.pm2.log
+.pm2-error.log
+.pid
+*.pid
+
+# Nginx (ignore configs with sensitive data, but you can track templates)
+# Uncomment if you have sensitive nginx configs:
+# nginx.conf
+# sites-available/*
+# sites-enabled/*
+# Keep nginx templates if needed, but ignore production configs
+
+# Build outputs
+dist/
+build/
+*.tsbuildinfo
+public/css/style.css
+public/css/*.css.map
+
+# Database
+*.sqlite
+*.sqlite3
+*.db
+*.sql
 database.sqlite
 database.sqlite-journal
-public/css/style.css
+*.sqlite-journal
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.swp
+*.swo
+*~
+.directory
+
+# IDE and editors
 .vscode/
 .idea/
+*.sublime-project
+*.sublime-workspace
+*.code-workspace
+.project
+.classpath
+.settings/
+*.iml
+
+# Session stores
+sessions/
+*.session
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+.cache/
+
+# Coverage and testing
+coverage/
+.nyc_output/
+*.lcov
+.jest/
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# parcel-bundler cache
+.parcel-cache
+
+# Next.js (if you ever migrate)
+.next/
+out/
+
+# Nuxt.js (if you ever migrate)
+.nuxt/
+
+# Serverless directories
+.serverless/
+
+# FuseBox cache
+.fusebox/
+
+# DynamoDB Local files
+.dynamodb/
+
+# TernJS port file
+.tern-port
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test
+
+# Vercel (if you switch back)
+.vercel
+
+# Local development
+.local/
 
